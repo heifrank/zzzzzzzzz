@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package crawler_dedup_grpc;
+
+option java_multiple_files = false;
+option java_package = "com.grpc.dedup";
+
+enum ReplyCode {
+    OK = 0; // success
+    PARAMS_ERROR = 1; // params not right
+    SERVER_ERROR = 2; // unkown error
+}
+
+message ReplyHeader {
+    ReplyCode status = 1;
+}
+
+message Document {
+    string url = 1; // 新闻url
+    int32 tier = 2; // 新闻质量，质量越好，tier越大
+}
+
+message DocumentList {
+    repeated Document docs = 1;
+}
+
+message Signature {
+    Document doc = 1;
+    string signature = 2; // simhash
+}
+
+message TableStatistics {
+    int32 all = 1;
+    int32 min = 2;
+    int32 max = 3;
+    int32 empty = 4;
+    double avg = 5;
+}
+
+message TableStatisticsList {
+    repeated TableStatistics tables = 1;
+}
+
+message DedupRequest {
+    string signature = 1;
+}
+message DedupReply {
+    ReplyHeader header = 1;
+    DocumentList docs = 2;
+}
+
+message InsertRequest {
+    Signature sig = 1;
+}
+
+message InsertReply {
+    ReplyHeader header = 1;
+}
+
+message DedupAndInsertRequest {
+    Signature sig = 1;
+}
+
+message DedupAndInsertReply {
+    ReplyHeader header = 1;
+    DocumentList docs = 2;
+}
+
+message StatRequest {
+}
+
+message StatReply {
+    ReplyHeader header = 1;
+    map<string, TableStatisticsList> tableMap = 2;
+}
+
+service Dedup {
+    rpc Dedup(DedupRequest) returns (DedupReply) {}
+    rpc Insert(InsertRequest) returns (InsertReply) {}
+    rpc DedupAndInsert(DedupAndInsertRequest) returns (DedupAndInsertReply) {}
+    rpc DedupAndInsertHighTier(DedupAndInsertRequest) returns (DedupAndInsertReply) {}
+    rpc Stat(StatRequest) returns (StatReply) {}
+}

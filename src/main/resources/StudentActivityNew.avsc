@@ -1,0 +1,47 @@
+{
+    "namespace": "com.rishav.avro",
+    "type": "record",
+    "name": "StudentActivity",
+    "fields": [
+        {
+            "name": "id",
+            "type": "string"
+        },
+        {
+            "name": "student_id",
+            "type": "int"
+        },
+
+        {
+            "name": "age",
+            "type": ["null", "int"],
+            "default": null
+        },
+        {
+            "name": "course_details",
+            "type": {
+                "name": "Activity",
+                "type": "record",
+                "fields": [
+                    {
+                        "name": "course_id",
+                        "type": "int"
+                    },
+                    {
+                        "name": "enroll_date",
+                        "type": "string"
+                    },
+                    {
+                        "name": "verb",
+                        "type": "string"
+                    },
+                    {
+                        "name": "score",
+                        "type": "double",
+                        "aliases": ["result_score"]
+                    }
+                ]
+            }
+        }
+    ]
+}
