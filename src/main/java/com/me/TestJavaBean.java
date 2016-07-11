@@ -78,6 +78,7 @@ public class TestJavaBean {
         map.put("what", 223);
 
 
+        System.out.println("User1 name " + user1.getName());
 
         BeanUtils.populate(user2, map);
         System.out.println(user2.getName() + user2.getAge());
