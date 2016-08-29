@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,13 +15,36 @@ public class TestPath {
     private static final Logger logger = LoggerFactory.getLogger(TestPath.class);
 
     public static void main(String[] args){
-        System.out.printf("ssd {}\n", "123");
-        logger.error("ssd {}", 123);
-//        String userdir = System.getProperty("user.dir");
-//
-//        String file = new File(userdir + "/" + args[0]).getAbsolutePath();
-//        System.out.println(file);
-        Map<String, Object> map = Maps.newHashMap();
-        System.out.println((long)map.get("334"));
+
+        TempClass t = new TempClass();
+        System.out.println(t.get());
+        t.set("44");
+
+        System.out.println(t.get());
+        if(t.getSS() == null){
+            System.out.println("empty!");
+        }
     }
 }
+
+class TempClass{
+    String a;
+
+    List<String> ss;
+
+    public String get(){
+        return a;
+    }
+
+    public void set(String aa){
+        a = aa;
+    }
+
+    public List<String> getSS(){
+        return ss;
+    }
+}
+
+
+
+

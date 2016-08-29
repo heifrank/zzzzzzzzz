@@ -43,10 +43,10 @@ public class CopyComponentInputOutput {
             Map<String, Object> map = Maps.newHashMap();
             map.put("input", document.get("input"));
             map.put("output", document.get("output"));
-            if(map.get("input") != null && map.get("output") != null){
-//                Document updateIO = new Document(map);
-//                mongoDatabase.getCollection(collsTo).findOneAndUpdate(new Document("_id", document.get("_id")), new Document("$set", updateIO));
-//                System.out.println("processed " +  ++cnt + " documents");
+            if(map.get("input") != null || map.get("output") != null){
+                Document updateIO = new Document(map);
+                mongoDatabase.getCollection(collsTo).findOneAndUpdate(new Document("_id", document.get("_id")), new Document("$set", updateIO));
+                System.out.println("processed " +  ++cnt + " documents");
             }else{
                 System.out.println("id is " + document.get("_id"));
             }

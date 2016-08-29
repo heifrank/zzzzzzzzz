@@ -2,7 +2,9 @@ package com.me;
 
 import avro.shaded.com.google.common.collect.Lists;
 import avro.shaded.com.google.common.collect.Maps;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yidian.cpp.common.util.json.JacksonMapper;
 import com.yidian.cpp.common.util.json.JsonUtil;
 
@@ -18,6 +20,8 @@ public class UtilFromTo {
     private static void doWork(String inName) throws IOException {
         System.out.println("inName: " + inName);
         File inf = new File(inName);
+//        ObjectMapper mapper = JacksonMapper.MAPPER.getMapper();
+//        mapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
         List<Object> lst = JacksonMapper.MAPPER.getMapper().readValue(inf, new TypeReference<List<Object>>(){});
         List<String> resSame = Lists.newArrayList();
         Map<String, Object> resDiff = Maps.newHashMap();

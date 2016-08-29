@@ -15,6 +15,14 @@ import java.util.regex.Pattern;
  */
 public class TestRegex {
     public static void main(String[] args) throws IOException {
+        String abc = "/ ";
+        if(abc.substring(1) == null){
+            System.out.println("null");
+        }else if(abc.substring(1).matches("[ ]+")){
+            System.out.println("empty");
+        }
+
+
         System.out.println("宋洋".getBytes().length);
         byte[] ss = "宋洋".getBytes(Charset.forName("gbk"));
         System.out.println(ss.length);

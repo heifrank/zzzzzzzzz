@@ -32,19 +32,29 @@ public class ZooKeeperTest {
     }
 
     public static void test_semaphore() throws IOException, InterruptedException, KeeperException {
-        ZooKeeper zk = new ZooKeeperTest().connect("192.168.254.229:2181", 3000);
+        ZooKeeper zk = new ZooKeeperTest().connect("192.168.253.243:2181", 3000);
         Semaphore semaphore = new Semaphore(1);
         semaphore.acquire();
-        String path = "/mynode";
+        String path = "/sample-group";
         while(true){
-            List<String> children = zk.getChildren(path, true);
+            List<String> children = zk.getChildren(path, new Watcher(){
+                @Override
+                public void process(WatchedEvent event){
+                    if(event.getType() == Event.EventType.NodeChildrenChanged){
+                        semaphore.release();
+                        System.out.println("CK release finished");
+                    }
+                }
+            });
+            System.out.println("CK getChildren finished");
             children.stream().forEach(System.out::println);
+            System.out.println("CK before acquire");
             semaphore.acquire();
         }
     }
 
     public static void main(String args[]) throws IOException, InterruptedException, KeeperException {
-//        ZooKeeperTest zooKeeperTest = new ZooKeeperTest();
+        ZooKeeperTest zooKeeperTest = new ZooKeeperTest();
 //        zooKeeperTest.connect("192.168.254.80:2181", 3000);
         test_semaphore();
     }

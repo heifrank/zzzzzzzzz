@@ -116,10 +116,11 @@ public class TestGuava extends TestCase {
     }
 
     public void test_lists(){
-        List<String> lst = Lists.newArrayList();
-        lst.add("sss");
-        lst.add("bbb");
-        lst.stream().forEach(System.out::println);
+        String s = "/abc/def//okc/ffd";
+        List<String> lst = Lists.newArrayList(Splitter.on("/").omitEmptyStrings().split(s));
+        for(String ss : lst){
+            System.out.println(ss);
+        }
     }
 
     public void test_fluent(){

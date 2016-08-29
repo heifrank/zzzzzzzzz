@@ -4,6 +4,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by heifrank on 16/4/21.
  */
@@ -11,12 +14,18 @@ public class TestRegex implements Runnable{
     private static final Logger logger = LoggerFactory.getLogger(TestRegex.class);
 
     public static void main(String[] args){
-
+        String[] texts = {"test_avdl/versions/latest", "test_avdl/versions", "testdsf/verss"};
+        for(String s : texts){
+            Pattern pattern = Pattern.compile("(\\w+)/versions(/\\w+)?");
+            Matcher matcher = pattern.matcher(s);
+            if(matcher.matches()) {
+                System.out.println(String.format("first: %s, second: %s", matcher.group(1), matcher.group(2)));
+            }
+        }
     }
 
     @Test
     public void test(){
-        String pattern = "(?i)\\d+\\s\\w+songyang\\w";
         String text = "234      8usongyangk";
         System.out.println(text.matches(text));
         System.out.println(text.matches(text + "o"));
