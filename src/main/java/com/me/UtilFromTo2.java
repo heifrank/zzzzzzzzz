@@ -146,10 +146,5 @@ public class UtilFromTo2 {
             System.out.println("####################################################################");
         }
 
-//        doWork("/Users/heifrank/codes/output/add_display_serving_mongo");
-//        doWork("/Users/heifrank/codes/output/add_online_serving_mongo");
-//        doWork("/Users/heifrank/codes/output/add_online_mongo");
-//        doWork("/Users/heifrank/codes/output/add_offline_mongo");
-
     }
 }
